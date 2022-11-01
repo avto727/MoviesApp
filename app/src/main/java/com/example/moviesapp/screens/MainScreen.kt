@@ -1,6 +1,5 @@
 package com.example.moviesapp.screens
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -17,9 +16,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 import com.example.moviesapp.MainViewModel
 import com.example.moviesapp.data.models.Movies
+import com.example.moviesapp.navigation.Screens
 
 @Composable
 fun MainScreen(navController: NavController, viewModel: MainViewModel) {
@@ -33,19 +32,21 @@ fun MainScreen(navController: NavController, viewModel: MainViewModel) {
                 .padding(20.dp)
         ) {
             items(allMovies.take(10)) { item ->
-                MovieItem(item = item)
+                MovieItem(item = item, navController = navController)
             }
         }
     }
 }
 
 @Composable
-fun MovieItem(item: Movies) {
+fun MovieItem(item: Movies, navController: NavController) {
     Card(
         elevation = 4.dp,
         modifier = Modifier
             .padding(top = 8.dp)
-            .clickable { }
+            .clickable {
+                navController.navigate(Screens.Details.route + "/${item.id}")
+            } // Реализация перехода на экран деталей
     ) {
         Row(
             modifier = Modifier
