@@ -12,7 +12,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
@@ -55,6 +57,34 @@ fun MovieItem(item: Movies) {
                 contentDescription = null,
                 modifier = Modifier.size(128.dp)
             )
+            Column {
+                Text(
+                    text = item.name,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Row {
+                    Text(
+                        text = "Rating: ",
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(text = item.rating.average.toString())
+                }
+                Row {
+                    Text(
+                        text = "Genre: ",
+                        fontWeight = FontWeight.Bold
+                    )
+                    item.genres.take(2).forEach { Text(text = "$it ") }
+                }
+                Row {
+                    Text(
+                        text = "Premiered: ",
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(text = item.premiered)
+                }
+            }
         }
     }
 }
